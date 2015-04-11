@@ -54,14 +54,22 @@ void loop() {
           client.println("</FORM>"); // Above and below you'll see that when we click on a button, it adds a little snippet
           client.println("</body>");
           client.println("</html>");
-          if (readString.indexOf("1234 ") > 0  )
+          if (readString.indexOf("3214 ") > 0  )
           {
-            client.println("<script>console.log('on');</script>");
             pinMode(2, OUTPUT);
+            client.println("<script>console.log('on');</script>");
+            for (int thisNote = 0; thisNote < 8; thisNote++) {
+              int noteDuration = 1000/noteDurations[thisNote];
+              tone(8, melody[thisNote],noteDuration);
+              int pauseBetweenNotes = noteDuration * 1.30;
+              delay(pauseBetweenNotes);
+              noTone(8);
+            }
             delay(2000);
             client.println("<script>console.log('off');</script>");
             pinMode(2, INPUT);
-            for (int thisNote = 0; thisNote < 8; thisNote++) {
+            delay(8000);
+             for (int thisNote = 0; thisNote < 8; thisNote++) {
               int noteDuration = 1000/noteDurations[thisNote];
               tone(8, melody[thisNote],noteDuration);
               int pauseBetweenNotes = noteDuration * 1.30;
